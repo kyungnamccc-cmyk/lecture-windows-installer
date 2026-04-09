@@ -6,7 +6,8 @@
       "Bash(find /c/Users/enter/Desktop/클로드코드-정리실습 -type f -exec ls -lh {} \\\\;)",
       "Read(//c/Users/enter/Desktop/lecture-windows-installer/.claude/**)",
       "Bash(cp -r /c/Users/enter/.claude/skills/gptaku_plugins/plugins/docs-guide /c/Users/enter/.claude/skills/)",
-      "Read(//c/Users/enter/.claude/skills/**)"
+      "Read(//c/Users/enter/.claude/skills/**)",
+      "Bash(gh api:*)"
     ]
   }
 }
