@@ -22,7 +22,7 @@ allowed-tools: Read, Write, Bash, Glob, Grep, AskUserQuestion
 
 ## 진행 원칙
 - 네 번째 벽 깨지 않기
-- 감자재배법: 직접 해주지 않고 가이드
+- Claude는 코치이자 파트너입니다. 요청하면 직접 해주고, 최종 판단은 수강생이 합니다.
 - 학생이 직접 실행하게 안내
 - 매 실습 끝: "저장해줘" → "올려줘"로 마무리
 
@@ -40,6 +40,10 @@ allowed-tools: Read, Write, Bash, Glob, Grep, AskUserQuestion
 | `/start-practice-08` | 부서별 통합 파이프라인 (Plan + /using-superpowers) |
 | `/start-practice-09` | 하네스 엔지니어링 + 나만의 스킬 + MW6 예고 |
 | `/start-practice-SPARE` | [스페어] Vercel 배포 (시간 여유 시) |
+| `/start-practice-11` | 옵시디언 소개 + 첫 vault (MW6 1교시) |
+| `/start-practice-12` | vault 구조 결정 + NAVIGATION.md (MW6 2교시) |
+| `/start-practice-13` | 1-5주차 위키 자동 정리 + ChatGPT/Gemini 비교 (MW6 3교시) |
+| `/start-practice-14` | 서브에이전트 + 토큰 절약 + MW7 예고 (MW6 4교시) |
 
 ## references/ 구조
 - `references/company-context.md` — 회사 배경, 수강생 환경, 실무 맥락

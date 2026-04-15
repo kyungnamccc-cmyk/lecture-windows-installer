@@ -1,112 +1,177 @@
-# CLAUDE.md
+# 성우하이텍 AI 마스터 과정 MW4-7 실습 레포
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## What This Repo Is
-
-A **Windows-native installer bundle** for the Claude Code lecture environment used at 성우하이텍 (Sungwoo Hitech). It packages commands, skills, agents, and references that get copied into `~/.claude/` on a student's PC.
-
-The main installer is `install-lecture-windows.ps1`. It runs in 5 phases:
-1. Install prerequisites via winget (Git, Python 3.12, Node.js LTS, jq, GitHub CLI)
-2. Install Claude Code via npm (`@anthropic-ai/claude-code`)
-3. Authenticate Claude (`claude auth login`)
-4. Copy bundle assets to `~/.claude/` and configure MCP servers
-5. Verify installation (checks versions + asserts key asset paths exist)
-
-## Running the Installer
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install-lecture-windows.ps1
-```
-
-The script must be run from the repo root (it uses `$PSScriptRoot` as `$BundleDir`).
-
-## Bundle Asset Structure
-
-Assets under `.claude/` are copied verbatim into `~/.claude/` on the student's machine:
-
-| Source | Destination | Purpose |
-|--------|-------------|---------|
-| `.claude/commands/*.md` | `~/.claude/commands/` | Slash commands (`/lecture`, `/start-mw4-1`, etc.) |
-| `.claude/skills/` | `~/.claude/skills/` | Skill definitions invoked by commands |
-| `.claude/agents/*.md` | `~/.claude/agents/` | Subagents (`dept-mentor`, `quality-reviewer`) |
-| `.claude/reference/*.md` | `~/.claude/reference/` | Reference docs for Claude |
-
-## Key Installer Behaviors
-
-- **Idempotent package installs**: `Install-WingetPackage` skips if already installed
-- **MCP servers registered**: playwright, notion, pdf-tools, notebooklm (via `claude mcp add-json`)
-- **settings.local.json**: Always overwritten with `{"enableAllProjectMcpServers": true}`
-- **settings.json**: Created as `{}` only if it doesn't already exist
-- **Pinned Claude Code version**: Set via `$ClaudeCodeVersion` at the top of the script
-
-## Verification Checks (Phase 5)
-
-The installer asserts these assets exist after copying — if any are missing, the install is broken:
-- `~/.claude/commands/lecture.md`
-- `~/.claude/commands/start-mw4-1.md`
-- `~/.claude/skills/lesson-a/SKILL.md`
-- `~/.claude/agents/dept-mentor.md`
-- `~/.claude/settings.local.json`
-
-## Lesson Commands
-
-After install, students use these slash commands in Claude Code:
-
-- `/start-mw4-1` through `/start-mw4-4` — MW4 교시별 강의 시작
-- `/start-mw5-1` through `/start-mw5-4` — MW5 교시별 강의 시작
-- `/lecture` — Full lecture orchestration
-- `/lesson` — Per-session lesson start
-
-## Platform Scope
-
-This installer is **Windows native only** (no WSL, no tmux). The `MIGRATION-GUIDE.md` documents other platforms (Linux/WSL/macOS) but those use separate scripts not in this repo.
-
-## 도메인 판정 규칙
-
-강의 실습에서 구조 해석 결과를 평가할 때 적용하는 기준:
-
-- 응력 > 500 MPa → **불합격**
-- 안전계수 < 2.0 → **불합격**
-
-두 조건 중 하나라도 해당하면 불합격으로 표시한다.
-
-## Sensitive Files — Do Not Commit
-
-- `~/.claude/settings.local.json` (student machine only)
-- `~/.mcp-secrets.env` (API keys)
-- Any file containing actual Notion API tokens (use `YOUR_NOTION_TOKEN` as placeholder)
+이 파일은 수강생이 이 저장소를 clone한 직후 Claude Code가 읽는 프로젝트 컨텍스트입니다.
+이 문서를 통해 수강생은 이 레포의 목적, 자신의 역할, 실습 방식, 작업 규칙을 빠르게 이해할 수 있습니다.
 
 ---
 
-## 행동 규칙 — Always / Ask / Never
+## 프로젝트 설명
 
-> 수강생: 윤용식 (성우하이텍 A-RnD, CAE 구조해석 담당)  
-> Claude Code 첫 사용자. 채팅형 AI 경험은 있음.
+이 저장소는 **성우하이텍 AI 마스터 과정 MW4-7 실습 레포**입니다.
+목표는 제조업 실무자가 Claude Code를 활용해 실제 업무에 적용 가능한 분석 결과물과 문서를 만드는 것입니다.
 
-### Always (항상 한다)
+이 과정은 개발자 교육이 아닙니다.
+제조업 실무자가 AI 도구를 자신의 업무 흐름 안에 넣는 방법을 배우는 과정입니다.
 
-- **한국어로 응답한다.** 코드·명령어는 영어 그대로, 설명은 한국어로.
-- **파일을 수정하기 전에 반드시 Read로 먼저 읽는다.**
-- **판정 기준을 명시한 분석 요청을 우선한다.** 응력/안전계수 기준(500 MPa, 2.0)을 분석 요청에 포함시킨다.
-- **CAE 결과 데이터(응력·변형·안전계수)를 다룰 때 판정 기준을 자동 적용한다.**
-  - 응력 > 500 MPa → 불합격
-  - 안전계수 < 2.0 → 불합격
-  - 두 조건 중 하나라도 해당하면 불합격
-- **Git 저장 후 "아직 내 컴퓨터에만 있어요" 리마인드를 붙인다.** Push와 Commit의 차이를 체감하게 한다.
-- **Windows 네이티브 환경 기준으로 안내한다.** PowerShell/CMD 명령어 사용. WSL·tmux는 이 환경에 없다.
+MW4에서는 설치, 환경 연결, GitHub, `student-profile.md` 기반 개인화, 모델/모드 감각, plugin 실습, 간단한 실무 확장을 다룹니다.
+MW5에서는 CLAUDE.md, 작업 규칙, 반복 가능한 실무 워크플로우, 결과 정리, 배포까지 확장합니다.
+MW6에서는 옵시디언 vault에 자료를 통합하고, AI가 자동으로 정리·검색·연결하는 **통합 지식 워크플로우**를 배웁니다.
+MW7에서는 MW4-6에서 배운 모든 도구를 본인 업무에 적용한 **종합 프로젝트 발표**를 합니다.
 
-### Ask (먼저 확인한다)
+---
 
-- **판정 기준이 기본값(500 MPa / 2.0)과 다를 때** — 새 기준을 명시적으로 확인한 뒤 적용한다.
-- **여러 파일을 한꺼번에 삭제하거나 디렉터리 구조를 재편할 때** — 범위를 보여주고 승인을 받는다.
-- **installer 스크립트(`install-lecture-windows.ps1`)를 수정할 때** — Phase 번호와 변경 영향을 설명한 뒤 진행한다.
-- **`.claude/` 번들 구조(commands·skills·agents)를 바꿀 때** — 학생 PC 배포에 영향을 주므로 확인 먼저.
+## 수강생의 역할
 
-### Never (절대 하지 않는다)
+당신은 이 레포에서 코드를 많이 작성하는 개발자가 아닙니다.
+당신은 **제조업 실무자로서 AI 도구를 업무에 적용하는 법을 배우는 사람**입니다.
 
-- `~/.claude/settings.local.json` 커밋 금지 — 학생 머신 전용 파일.
-- `~/.mcp-secrets.env` 또는 실제 API 토큰이 담긴 파일 커밋 금지.
-- 실제 Notion API 토큰 파일에 포함 금지 — 플레이스홀더 `YOUR_NOTION_TOKEN` 사용.
-- WSL·tmux·Linux 전용 명령어를 이 레포 안내에 사용 금지 — Windows native only.
-- 요청 범위를 벗어난 리팩터링·기능 추가 금지 — 요청한 것만 한다.
+즉, 중요한 것은 아래입니다.
+
+- 내 업무 맥락을 AI에게 설명하기
+- 데이터를 보여주고 원하는 결과를 말하기
+- 받은 결과를 검토하고 수정 지시하기
+- 좋은 결과를 저장하고 공유하기
+
+Claude Code는 비서이자 작업 파트너입니다.
+하지만 최종 판단은 항상 수강생 본인이 해야 합니다.
+
+---
+
+## 4개 그룹 설명
+
+### A그룹 — R&D
+- 분야: CAE, 구조해석, 시뮬레이션, 배터리
+- 예시 업무: 성능 비교, 실험 결과 요약, 원인 정리, 기술 보고서 초안
+
+### B그룹 — 전략
+- 분야: 시장, 경쟁사, KPI, 사업 전략, M&A
+- 예시 업무: 시장 분석, 경쟁사 비교, KPI 정리, 보고서 초안
+
+### C그룹 — 제조
+- 분야: 불량, 생산, 품질, 금형, 공정
+- 예시 업무: 불량 원인 분류, 생산 리포트, 개선안 정리, 현장 이슈 요약
+
+### D그룹 — 경영
+- 분야: 예산, 구매, 투자, 경영 판단
+- 예시 업무: 예산 비교, 구매 검토, 투자 메모, 의사결정 초안
+
+---
+
+## 핵심 규칙
+
+### 1. Claude는 코치이자 파트너
+Claude Code는 여러분의 **작업 파트너**입니다.
+
+- 요청하면 직접 해줍니다 (분석, 정리, 검색, 파일 생성 등)
+- 동시에 "왜 이렇게 했는지" 설명도 해줍니다
+- 결과가 마음에 안 들면 "다시 해줘", "이 부분 바꿔줘"라고 하면 됩니다
+
+중요한 건 **최종 판단은 항상 수강생 본인**이 한다는 것입니다.
+AI가 만든 결과를 그대로 쓸지, 수정할지, 버릴지는 여러분이 결정합니다.
+
+### 2. 저장해줘 → 올려줘
+좋은 결과가 나오면 끝이 아닙니다.
+반드시 아래 순서로 마무리합니다.
+
+1. **저장해줘**
+2. **올려줘**
+
+저장은 로컬 파일로 남기는 행동이고,
+올리기는 GitHub에 반영해 다시 찾을 수 있게 만드는 행동입니다.
+
+---
+
+## practice-data 폴더 안내
+
+실습 데이터는 기본적으로 `practice-data/` 폴더를 기준으로 사용합니다.
+분석을 요청할 때는 아래처럼 구체적으로 말하는 것이 좋습니다.
+
+- `@practice-data/A-RnD/battery_log.csv 를 보고 핵심 경향을 정리해줘`
+- `@practice-data/C-제조/defect_log.csv 기준으로 불량 유형을 분류해줘`
+- `@practice-data/B-전략/market_reports/Q1-2026.md 를 요약해서 공유용 메모로 바꿔줘`
+
+데이터를 설명할 때는 파일명만 말하지 말고,
+무엇을 알고 싶은지도 함께 말해야 더 좋은 결과가 나옵니다.
+
+---
+
+## 작업할 때 추천하는 방식
+
+좋은 요청의 기본 구조는 아래와 같습니다.
+
+1. 나는 누구인지
+2. 어떤 부서인지
+3. 어떤 파일을 보는지
+4. 무엇을 알고 싶은지
+5. 결과를 어떤 형식으로 받고 싶은지
+
+수업에서는 이 정보를 먼저 `student-profile.md`에 정리한 뒤, 이후 교시에서 그 파일을 읽으며 진행합니다.
+
+예시:
+
+- 나는 제조팀이야.
+- `practice-data/defect-log.csv`를 보고 싶어.
+- 가장 자주 발생하는 불량 3개를 찾고,
+- 원인 가설과 개선 제안을 표로 정리해줘.
+
+---
+
+## 결과물 저장 위치
+
+- 분석 초안: `analysis/`
+- 정리 완료본: `organized/`
+- 검토/피드백 메모: `reviews/`
+
+완성도가 올라갈수록 파일 위치를 더 정리된 폴더로 옮긴다고 생각하면 됩니다.
+
+---
+
+## Claude에게 자주 하게 될 요청
+
+- 이 파일 요약해줘
+- 핵심 숫자만 뽑아줘
+- 표로 정리해줘
+- 팀 공유용 문장으로 바꿔줘
+- 초등학생도 이해하게 쉽게 설명해줘
+- 보고서 문체로 바꿔줘
+- 저장해줘
+- 올려줘
+
+---
+
+## 절대 잊지 말아야 할 점
+
+- AI 결과는 초안이다
+- 업무 맥락을 말해야 결과 품질이 올라간다
+- 한 번에 너무 크게 시키지 않는다
+- 저장하지 않으면 다시 찾기 어렵다
+- 실습 결과는 GitHub에 남겨야 팀 공유가 가능하다
+
+---
+
+## 실습 시작 방법
+
+수업을 시작할 때는 Claude Code에서 아래 명령을 입력하세요.
+
+| 명령 | 실습 내용 |
+|------|----------|
+| `/start-practice-01` | 설치와 연결 (VSCode + Claude Code + 로그인 + 첫 대화) |
+| `/start-practice-02` | 플러그인 설치 + student-profile.md 생성 + 첫 Git |
+| `/start-practice-03` | 도구 탐색 (capabilities tour + my-installed-tools.md) |
+| `/start-practice-04` | 부서별 데이터 분석 |
+| `/start-practice-05` | 결과 다듬기 + 저장 |
+| `/start-practice-06` | CLAUDE.md 규칙 설계 (Always / Ask / Never) |
+| `/start-practice-07` | 구조가 결과를 바꾼다 (3층 비교 + 프롬프트 4법칙) |
+| `/start-practice-08` | 실무 반복 파이프라인 (/using-superpowers + deep-research) |
+| `/start-practice-09` | 하네스 엔지니어링 + 나만의 스킬 + MW6 예고 |
+| `/start-practice-SPARE` | [스페어] Vercel 배포 (MW5 시간 여유 시) |
+| `/start-practice-11` | 옵시디언 소개 + 첫 vault (MW6 1교시) |
+| `/start-practice-12` | vault 구조 결정 + NAVIGATION.md (MW6 2교시) |
+| `/start-practice-13` | 1-5주차 위키 자동 정리 + ChatGPT/Gemini 비교 (MW6 3교시) |
+| `/start-practice-14` | 서브에이전트 + 토큰 절약 + MW7 예고 (MW6 4교시) |
+
+각 실습은 독립적인 단위입니다.
+강사가 안내하는 순서대로 진행하면 됩니다.
+
+준비가 덜 되어 있어도 괜찮습니다.
+중요한 것은 완벽하게 아는 것이 아니라, 지금 바로 시작하는 것입니다.

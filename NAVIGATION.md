@@ -136,7 +136,7 @@
 - 학생 이름을 먼저 묻습니다.
 - 한 번에 한 단계씩 진행합니다.
 - `ACTION`, `USER`, `STOP` 흐름을 유지합니다.
-- 감자재배법 원칙을 지킵니다.
+- Claude는 코치이자 파트너입니다. 요청하면 직접 해주고, 최종 판단은 수강생이 합니다.
 
 ### Practice 모듈 문서
 
@@ -226,7 +226,11 @@ Practice 03 이상을 아무 설명 없이 진행한다.
 | 07 | 구조가 결과를 바꾼다 | `/start-practice-07` | A/B/C 비교 + `/prompt` 결과 |
 | 08 | 실무 반복 파이프라인 | `/start-practice-08` | 부서별 루프 결과 + before/after |
 | 09 | 하네스 + 나만의 스킬 + MW6 예고 | `/start-practice-09` | `my-weekly-check.md` + 스킬 1개 |
-| SPARE | Vercel 배포 | `/start-practice-SPARE` | Vercel URL (시간 여유 시) |
+| SPARE | Vercel 배포 | `/start-practice-SPARE` | Vercel URL (MW5 시간 여유 시) |
+| 11 | 옵시디언 소개 + 첫 vault | `/start-practice-11` | vault 열기 성공 |
+| 12 | vault 구조 결정 | `/start-practice-12` | `NAVIGATION.md` 생성 |
+| 13 | 위키 자동 정리 + Deep Research 비교 | `/start-practice-13` | `INDEX.md` + 외부 자료 1건 |
+| 14 | 서브에이전트 + 토큰 절약 | `/start-practice-14` | 실험 결과 + MW7 준비 메모 |
 
 ---
 
@@ -243,7 +247,9 @@ Practice 03 이상을 아무 설명 없이 진행한다.
 | 구조 차이를 체험하고 싶음 | Practice 07 |
 | 여러 파일을 묶어 흐름화하고 싶음 | Practice 08 |
 | 링크로 공유하고 싶음 | Practice 09 |
-| 반복 업무를 스킬 감각으로 정리하고 싶음 | Practice 10 |
+| 반복 업무를 스킬 감각으로 정리하고 싶음 | Practice 09 |
+| 자료를 AI가 읽기 쉬운 vault로 정리하고 싶음 | Practice 11-13 (MW6) |
+| 서브에이전트와 토큰 절약법을 익히고 싶음 | Practice 14 (MW6) |
 
 ---
 
@@ -264,8 +270,7 @@ AI가 안내 중 환경을 헷갈리면
 ## 톤과 원칙
 
 - 부드러운 권유형을 유지합니다.
-- 감자재배법을 따릅니다.
-- AI가 대신 끝내지 않고 수강생이 직접 시도하게 돕습니다.
+- Claude는 코치이자 파트너입니다. 요청하면 직접 해주고, 최종 판단은 수강생이 합니다.
 - "저장해줘 → 올려줘" 루프를 유지합니다.
 - 실습 시작 안내 박스는 Practice 01에만 1회 사용합니다.
 - 복습 속도와 설명 깊이는 수강생별로 유동 조절합니다.

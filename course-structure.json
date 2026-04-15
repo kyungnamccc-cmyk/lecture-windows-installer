@@ -19,62 +19,100 @@
       "id": "practice-01",
       "name": "설치와 연결",
       "module": "practice-01-install-and-connect",
-      "command": "/start-practice-01"
+      "command": "/start-practice-01",
+      "week": "MW4"
     },
     {
       "id": "practice-02",
       "name": "플러그인 설치 + 나를 알려주는 파일 만들기",
       "module": "practice-02-first-profile",
-      "command": "/start-practice-02"
+      "command": "/start-practice-02",
+      "week": "MW4"
     },
     {
       "id": "practice-03",
-      "name": "도구 탐��",
+      "name": "도구 탐색",
       "module": "practice-03-plugin-literacy",
-      "command": "/start-practice-03"
+      "command": "/start-practice-03",
+      "week": "MW4"
     },
     {
       "id": "practice-04",
       "name": "부서별 데이터 분석",
       "module": "practice-04-dept-analysis",
-      "command": "/start-practice-04"
+      "command": "/start-practice-04",
+      "week": "MW4"
     },
     {
       "id": "practice-05",
       "name": "결과 다듬기 + 저장",
       "module": "practice-05-refine-and-share",
-      "command": "/start-practice-05"
+      "command": "/start-practice-05",
+      "week": "MW4"
     },
     {
       "id": "practice-06",
       "name": "CLAUDE.md 규칙 설계",
       "module": "practice-06-claudemd-rules",
-      "command": "/start-practice-06"
+      "command": "/start-practice-06",
+      "week": "MW5"
     },
     {
       "id": "practice-07",
       "name": "구조가 결과를 바꾼다",
       "module": "practice-07-workflow-and-prompt",
-      "command": "/start-practice-07"
+      "command": "/start-practice-07",
+      "week": "MW5"
     },
     {
       "id": "practice-08",
       "name": "부서별 통합 파이프라인",
       "module": "practice-08-integrated-pipeline",
-      "command": "/start-practice-08"
+      "command": "/start-practice-08",
+      "week": "MW5"
     },
     {
       "id": "practice-09",
       "name": "하네스 엔지니어링 + 나만의 스킬 + MW6 예고",
       "module": "practice-09-harness-and-skill",
-      "command": "/start-practice-09"
+      "command": "/start-practice-09",
+      "week": "MW5"
     },
     {
       "id": "practice-SPARE",
-      "name": "[스페어] Vercel 배포 (시간 여유 시)",
+      "name": "[스페어] Vercel 배포 (MW5 시간 여유 시)",
       "module": "practice-SPARE-vercel-deploy",
       "command": "/start-practice-SPARE",
+      "week": "MW5",
       "spare": true
+    },
+    {
+      "id": "practice-11",
+      "name": "옵시디언 소개 + 첫 vault",
+      "module": "practice-11-obsidian-intro",
+      "command": "/start-practice-11",
+      "week": "MW6"
+    },
+    {
+      "id": "practice-12",
+      "name": "vault 구조 결정 + NAVIGATION.md",
+      "module": "practice-12-vault-structure",
+      "command": "/start-practice-12",
+      "week": "MW6"
+    },
+    {
+      "id": "practice-13",
+      "name": "1-5주차 위키 자동 정리 + Deep Research 비교",
+      "module": "practice-13-knowledge-manager",
+      "command": "/start-practice-13",
+      "week": "MW6"
+    },
+    {
+      "id": "practice-14",
+      "name": "서브에이전트 + 토큰 절약 + MW7 예고",
+      "module": "practice-14-subagent-codex",
+      "command": "/start-practice-14",
+      "week": "MW6"
     }
   ],
   "participants": {
