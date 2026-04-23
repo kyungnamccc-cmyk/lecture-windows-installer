@@ -113,6 +113,24 @@
       "module": "practice-14-subagent-codex",
       "command": "/start-practice-14",
       "week": "MW6"
+    },
+    {
+      "id": "practice-15",
+      "name": "Claude Design 사례 소개 + PPT 자동 생성 실습",
+      "module": "practice-15-claude-design",
+      "command": "/start-practice-15",
+      "week": "MW7",
+      "optional": true,
+      "note": "MW7 종합 프로젝트 중 선택 실습. lesson-a 레포를 Claude Design에 임포트해 MW1-6 요약 PPT 15장 자동 생성 + Edit 체험."
+    },
+    {
+      "id": "practice-16",
+      "name": "MW7 종합 프로젝트 — 10 과제 중 1개 Level 1/2/3",
+      "module": "practice-16-mw7-project",
+      "command": "/start-practice-16",
+      "week": "MW7",
+      "optional": false,
+      "note": "친절 가이드 OFF 모드. 10개 과제 중 본인 부서 1개 선택 → Level 1 충실히 → Level 2 고도화 → Level 3 확장. 결과물 URL·사진은 Google Sheets 공용 시트 본인 번호 행에 기재(닉네임 익명 가능). 강사가 시연 직전 1~2분 훑기만, 팀별 발표 없음."
     }
   ],
   "participants": {

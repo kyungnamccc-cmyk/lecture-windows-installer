@@ -169,6 +169,8 @@ AI가 만든 결과를 그대로 쓸지, 수정할지, 버릴지는 여러분이
 | `/start-practice-12` | vault 구조 결정 + NAVIGATION.md (MW6 2교시) |
 | `/start-practice-13` | 1-5주차 위키 자동 정리 + ChatGPT/Gemini 비교 (MW6 3교시) |
 | `/start-practice-14` | 서브에이전트 + 토큰 절약 + MW7 예고 (MW6 4교시) |
+| `/start-practice-15` | Claude Design 사례 + lesson-a 레포 연결 + PPT 자동 생성 (MW7 선택) |
+| `/start-practice-16` | MW7 종합 프로젝트 — 10 과제 중 1개 Level 1/2/3 (MW7 본실습) |
 
 각 실습은 독립적인 단위입니다.
 강사가 안내하는 순서대로 진행하면 됩니다.
